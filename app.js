@@ -1,157 +1,167 @@
-const STORAGE = "cronopioTasks";
+const STORAGE = "cronopio.tasks";
 
-let tasks = JSON.parse(localStorage.getItem(STORAGE));
+let tasks = JSON.parse(localStorage.getItem(STORAGE)) || [];
 
-if(!tasks){
-
-    tasks=[
-
-        {
-            text:"📖 Leer 20 páginas",
-            done:false,
-            category:"Cultura"
-        },
-
-        {
-            text:"💪 Entrenar",
-            done:false,
-            category:"Salud"
-        },
-
-        {
-            text:"🎨 Dibujar 20 minutos",
-            done:false,
-            category:"Creatividad"
-        },
-
-        {
-            text:"☎️ Llamar a mamá",
-            done:false,
-            category:"Relaciones"
-        }
-
-    ];
-
+const ideas = [
+{
+title:"🎨 Creatividad",
+message:"Hace tiempo que no haces algo creativo. Hoy quiero que vuelvas a crear.",
+tasks:[
+"Dibujar 20 minutos",
+"Hacer una foto bonita",
+"Escuchar una canción con atención"
+]
+},
+{
+title:"📚 Aprendizaje",
+message:"Hoy vamos a alimentar la mente.",
+tasks:[
+"Leer 20 páginas",
+"Ver un vídeo educativo",
+"Escribir una reflexión"
+]
+},
+{
+title:"💪 Salud",
+message:"Tu cuerpo también necesita atención.",
+tasks:[
+"Caminar 30 minutos",
+"Beber 2 litros de agua",
+"Estirar 10 minutos"
+]
 }
-
-const list=document.getElementById("customTasks");
+];
 
 function save(){
-
-    localStorage.setItem(STORAGE,JSON.stringify(tasks));
-
+localStorage.setItem(STORAGE,JSON.stringify(tasks));
 }
 
 function render(){
 
-    list.innerHTML="";
+const list=document.getElementById("customTasks");
 
-    tasks.forEach((task,index)=>{
+list.innerHTML="";
 
-        list.innerHTML+=`
+tasks.forEach((task,index)=>{
 
+list.innerHTML+=`
 <div class="task">
 
 <input
 type="checkbox"
 ${task.done?"checked":""}
-onchange="toggle(${index})">
+onchange="toggleTask(${index})">
 
-<label style="flex:1">
+<label>${task.text}</label>
 
-${task.text}
-
-</label>
-
-<button
-onclick="editTask(${index})"
-style="border:none;background:none;font-size:18px;">
-
+<button onclick="editTask(${index})">
 ✏️
-
 </button>
 
-<button
-onclick="removeTask(${index})"
-style="border:none;background:none;font-size:18px;">
-
+<button onclick="deleteTask(${index})">
 🗑️
-
 </button>
 
 </div>
-
 `;
 
-    });
+});
 
-    save();
+updateProgress();
 
-    progress();
+save();
+
+}
+
+function updateProgress(){
+
+const total=tasks.length;
+
+const done=tasks.filter(t=>t.done).length;
+
+const percent=total===0?0:Math.round(done/total*100);
+
+document.getElementById("progressFill").style.width=percent+"%";
+
+document.getElementById("progressLabel").innerText=percent+"%";
+
+document.getElementById("alignmentScore").innerText=(70+Math.round(percent*0.3))+"%";
+
+document.getElementById("ringValue").innerText=(70+Math.round(percent*0.3))+"%";
+
+}
+
+function toggleTask(index){
+
+tasks[index].done=!tasks[index].done;
+
+render();
+
+}
+
+function deleteTask(index){
+
+tasks.splice(index,1);
+
+render();
+
+}
+
+function editTask(index){
+
+const nuevo=prompt("Editar misión",tasks[index].text);
+
+if(nuevo){
+
+tasks[index].text=nuevo;
+
+render();
+
+}
 
 }
 
 function addTask(){
 
-    const input=document.getElementById("newTask");
+const texto=prompt("Nueva misión");
 
-    if(input.value.trim()=="") return;
+if(!texto) return;
 
-    tasks.push({
+tasks.push({
 
-        text:input.value,
-        done:false,
-        category:"General"
+text:texto,
 
-    });
+done:false
 
-    input.value="";
+});
 
-    render();
+render();
 
 }
 
-function toggle(i){
+function generateDay(){
 
-    tasks[i].done=!tasks[i].done;
+const idea=ideas[Math.floor(Math.random()*ideas.length)];
 
-    render();
+document.getElementById("focusTitle").innerText=idea.title;
 
-}
+document.getElementById("coachMessage").innerText=idea.message;
 
-function removeTask(i){
+tasks=[];
 
-    tasks.splice(i,1);
+idea.tasks.forEach(t=>{
 
-    render();
+tasks.push({
 
-}
+text:t,
 
-function editTask(i){
+done:false
 
-    const nuevo=prompt("Editar misión",tasks[i].text);
+});
 
-    if(nuevo){
+});
 
-        tasks[i].text=nuevo;
-
-        render();
-
-    }
-
-}
-
-function progress(){
-
-    const total=tasks.length;
-
-    const done=tasks.filter(t=>t.done).length;
-
-    const percent=Math.round(done/total*100);
-
-    document.getElementById("progressFill").style.width=percent+"%";
-
-    document.getElementById("progressLabel").innerHTML=`<b>${percent}%</b> completado`;
+render();
 
 }
 
