@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+<title>Cronopio</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",sans-serif;
+}
+
+body{
+
+background:#F5F5F7;
+color:#111;
+padding:25px;
+padding-bottom:100px;
+
+}
+
+h1{
+
+font-size:38px;
+font-weight:700;
+
+}
+
+.subtitle{
+
+margin-top:8px;
+color:#666;
+font-size:17px;
+
+}
+
+.card{
+
+background:white;
+border-radius:24px;
+padding:22px;
+margin-top:20px;
+box-shadow:0 10px 30px rgba(0,0,0,.05);
+
+}
+
+.score{
+
+font-size:52px;
+font-weight:bold;
+
+}
+
+.green{
+
+color:#34C759;
+
+}
+
+.task{
+
+display:flex;
+align-items:center;
+gap:15px;
+padding:14px 0;
+border-bottom:1px solid #eee;
+
+}
+
+.task:last-child{
+
+border-bottom:none;
+
+}
+
+input[type=checkbox]{
+
+width:22px;
+height:22px;
+
+}
+
+.coach{
+
+background:#111;
+color:white;
+
+}
+
+.coach h2{
+
+margin-bottom:12px;
+
+}
+
+.bottom{
+
+position:fixed;
+bottom:0;
+left:0;
+right:0;
+
+background:white;
+
+display:flex;
+
+justify-content:space-around;
+
+padding:18px;
+
+box-shadow:0 -10px 30px rgba(0,0,0,.08);
+
+}
+
+.bottom div{
+
+text-align:center;
+font-size:13px;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>Cronopio</h1>
+
+<div class="subtitle">
+
+Buenos días, Carmen 👋
+
+</div>
+
+<div class="card">
+
+<h2>Alignment Score</h2>
+
+<div class="score">
+
+82<span class="green">%</span>
+
+</div>
+
+<p class="green">
+
+▲ +5% respecto a la semana pasada
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h2>Misiones de hoy</h2>
+
+<div class="task">
+
+<input id="t1" type="checkbox">
+
+<label for="t1">
+
+📖 Leer 20 páginas
+
+</label>
+
+</div>
+
+<div class="task">
+
+<input id="t2" type="checkbox">
+
+<label for="t2">
+
+💪 Entrenar
+
+</label>
+
+</div>
+
+<div class="task">
+
+<input id="t3" type="checkbox">
+
+<label for="t3">
+
+🎨 Dibujar 20 minutos
+
+</label>
+
+</div>
+
+<div class="task">
+
+<input id="t4" type="checkbox">
+
+<label for="t4">
+
+☎️ Llamar a mamá
+
+</label>
+
+</div>
+
+</div>
+
+<div class="card coach">
+
+<h2>Coach</h2>
+
+<p>
+
+Llevas varios días sin realizar ninguna actividad creativa.
+
+Mi recomendación para hoy es sencilla:
+
+<strong>haz un boceto durante 20 minutos.</strong>
+
+</p>
+
+</div>
+
+<div class="bottom">
+
+<div>
+
+🏠<br>
+
+Hoy
+
+</div>
+
+<div>
+
+📊<br>
+
+WGR
+
+</div>
+
+<div>
+
+🎯<br>
+
+Objetivos
+
+</div>
+
+<div>
+
+👤<br>
+
+Perfil
+
+</div>
+
+</div>
+
+<script>
+
+document.querySelectorAll("input").forEach(c=>{
+
+c.checked=localStorage.getItem(c.id)=="true";
+
+c.addEventListener("change",()=>{
+
+localStorage.setItem(c.id,c.checked);
+
+});
+
+});
+
+</script>
+
+</body>
+</html>
