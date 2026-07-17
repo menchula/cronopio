@@ -159,6 +159,14 @@ Buenos días, Carmen 👋
 <div class="card">
 
 <h2>Misiones de hoy</h2>
+<div style="margin:15px 0 20px 0;">
+    <input id="newTask" type="text" placeholder="Añadir nueva misión..." style="width:70%;padding:12px;border-radius:12px;border:1px solid #ddd;font-size:16px;">
+    <button onclick="addTask()" style="padding:12px 18px;border:none;border-radius:12px;background:#111;color:white;font-size:16px;">
+        +
+    </button>
+</div>
+
+<div id="customTasks"></div>
 
 <div class="task">
 
@@ -275,7 +283,69 @@ localStorage.setItem(c.id,c.checked);
 });
 
 });
+const customTasks = JSON.parse(localStorage.getItem("customTasks") || "[]");
 
+function renderTasks(){
+
+    const container=document.getElementById("customTasks");
+
+    container.innerHTML="";
+
+    customTasks.forEach((task,index)=>{
+
+        container.innerHTML+=`
+        <div class="task">
+
+            <input type="checkbox"
+            ${task.done?"checked":""}
+            onchange="toggleTask(${index})">
+
+            <label>${task.text}</label>
+
+        </div>
+        `;
+
+    });
+
+}
+
+function addTask(){
+
+    const input=document.getElementById("newTask");
+
+    if(input.value.trim()=="") return;
+
+    customTasks.push({
+
+        text:input.value,
+
+        done:false
+
+    });
+
+    input.value="";
+
+    saveTasks();
+
+}
+
+function toggleTask(index){
+
+    customTasks[index].done=!customTasks[index].done;
+
+    saveTasks();
+
+}
+
+function saveTasks(){
+
+    localStorage.setItem("customTasks",JSON.stringify(customTasks));
+
+    renderTasks();
+
+}
+
+renderTasks();
 </script>
 
 </body>
