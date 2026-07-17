@@ -1,42 +1,93 @@
-// ===== CRONOPIO v0.0.2 =====
+const STORAGE = "cronopioTasks";
 
-const taskContainer = document.getElementById("customTasks");
+let tasks = JSON.parse(localStorage.getItem(STORAGE));
 
-let tasks = JSON.parse(localStorage.getItem("cronopioTasks")) || [];
+if(!tasks){
 
-function saveTasks() {
-    localStorage.setItem("cronopioTasks", JSON.stringify(tasks));
+    tasks=[
+
+        {
+            text:"📖 Leer 20 páginas",
+            done:false,
+            category:"Cultura"
+        },
+
+        {
+            text:"💪 Entrenar",
+            done:false,
+            category:"Salud"
+        },
+
+        {
+            text:"🎨 Dibujar 20 minutos",
+            done:false,
+            category:"Creatividad"
+        },
+
+        {
+            text:"☎️ Llamar a mamá",
+            done:false,
+            category:"Relaciones"
+        }
+
+    ];
+
 }
 
-function renderTasks() {
+const list=document.getElementById("customTasks");
 
-    if (!taskContainer) return;
+function save(){
 
-    taskContainer.innerHTML = "";
+    localStorage.setItem(STORAGE,JSON.stringify(tasks));
 
-    tasks.forEach((task, index) => {
+}
 
-        const div = document.createElement("div");
-        div.className = "task";
+function render(){
 
-        div.innerHTML = `
-            <input type="checkbox"
-                   ${task.done ? "checked" : ""}
-                   onchange="toggleTask(${index})">
+    list.innerHTML="";
 
-            <label style="flex:1">${task.text}</label>
+    tasks.forEach((task,index)=>{
 
-            <button onclick="deleteTask(${index})"
-                    style="border:none;background:none;font-size:18px;cursor:pointer;">
-                🗑️
-            </button>
-        `;
+        list.innerHTML+=`
 
-        taskContainer.appendChild(div);
+<div class="task">
+
+<input
+type="checkbox"
+${task.done?"checked":""}
+onchange="toggle(${index})">
+
+<label style="flex:1">
+
+${task.text}
+
+</label>
+
+<button
+onclick="editTask(${index})"
+style="border:none;background:none;font-size:18px;">
+
+✏️
+
+</button>
+
+<button
+onclick="removeTask(${index})"
+style="border:none;background:none;font-size:18px;">
+
+🗑️
+
+</button>
+
+</div>
+
+`;
 
     });
 
-    updateProgress();
+    save();
+
+    progress();
 
 }
 
@@ -44,73 +95,64 @@ function addTask(){
 
     const input=document.getElementById("newTask");
 
-    if(!input) return;
-
-    if(input.value.trim()==="") return;
+    if(input.value.trim()=="") return;
 
     tasks.push({
 
         text:input.value,
-        done:false
+        done:false,
+        category:"General"
 
     });
 
     input.value="";
 
-    saveTasks();
-    renderTasks();
+    render();
 
 }
 
-function toggleTask(index){
+function toggle(i){
 
-    tasks[index].done=!tasks[index].done;
+    tasks[i].done=!tasks[i].done;
 
-    saveTasks();
-
-    renderTasks();
+    render();
 
 }
 
-function deleteTask(index){
+function removeTask(i){
 
-    tasks.splice(index,1);
+    tasks.splice(i,1);
 
-    saveTasks();
-
-    renderTasks();
+    render();
 
 }
 
-function updateProgress(){
+function editTask(i){
 
-    const total =
-        document.querySelectorAll("input[type='checkbox']").length;
+    const nuevo=prompt("Editar misión",tasks[i].text);
 
-    const done =
-        document.querySelectorAll("input[type='checkbox']:checked").length;
+    if(nuevo){
 
-    const percent =
-        total===0 ? 0 : Math.round(done/total*100);
+        tasks[i].text=nuevo;
 
-    const progress=document.getElementById("progressFill");
-
-    const label=document.getElementById("progressLabel");
-
-    if(progress){
-
-        progress.style.width=percent+"%";
-
-    }
-
-    if(label){
-
-        label.innerText=`${percent}% completado`;
+        render();
 
     }
 
 }
 
-renderTasks();
+function progress(){
 
-document.addEventListener("change",updateProgress);
+    const total=tasks.length;
+
+    const done=tasks.filter(t=>t.done).length;
+
+    const percent=Math.round(done/total*100);
+
+    document.getElementById("progressFill").style.width=percent+"%";
+
+    document.getElementById("progressLabel").innerHTML=`<b>${percent}%</b> completado`;
+
+}
+
+render();
