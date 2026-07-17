@@ -1,328 +1,138 @@
 <!DOCTYPE html>
 <html lang="es">
-<link rel="stylesheet" href="style.css"
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 
 <title>Cronopio</title>
 
-<style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",sans-serif;
-}
-<script src="app.js"></script>
-body{
-
-background:#F5F5F7;
-color:#111;
-padding:25px;
-padding-bottom:100px;
-
-}
-
-h1{
-
-font-size:38px;
-font-weight:700;
-
-}
-
-.subtitle{
-
-margin-top:8px;
-color:#666;
-font-size:17px;
-
-}
-
-.card{
-
-background:white;
-border-radius:24px;
-padding:22px;
-margin-top:20px;
-box-shadow:0 10px 30px rgba(0,0,0,.05);
-
-}
-
-.score{
-
-font-size:52px;
-font-weight:bold;
-
-}
-
-.green{
-
-color:#34C759;
-
-}
-
-.task{
-
-display:flex;
-align-items:center;
-gap:15px;
-padding:14px 0;
-border-bottom:1px solid #eee;
-
-}
-
-.task:last-child{
-
-border-bottom:none;
-
-}
-
-input[type=checkbox]{
-
-width:22px;
-height:22px;
-
-}
-
-.coach{
-
-background:#111;
-color:white;
-
-}
-
-.coach h2{
-
-margin-bottom:12px;
-
-}
-
-.bottom{
-
-position:fixed;
-bottom:0;
-left:0;
-right:0;
-
-background:white;
-
-display:flex;
-
-justify-content:space-around;
-
-padding:18px;
-
-box-shadow:0 -10px 30px rgba(0,0,0,.08);
-
-}
-
-.bottom div{
-
-text-align:center;
-font-size:13px;
-
-}
-
-</style>
+<link rel="stylesheet" href="style.css">
 
 </head>
 
 <body>
 
+<div class="container">
+
+<header>
+
 <h1>Cronopio</h1>
 
-<div class="subtitle">
+<p class="subtitle">Buenos días, Carmen ✨</p>
 
-Buenos días, Carmen 👋
+</header>
+
+<section class="card hero">
+
+<div class="hero-left">
+
+<p class="small">Alignment</p>
+
+<h2 id="alignmentScore">76%</h2>
+
+<p class="wow">▲ +8% vs semana pasada</p>
 
 </div>
 
-<div class="card">
+<div class="hero-right">
 
-<h2>Alignment Score</h2>
+<div class="ring">
 
-<div class="score">
-
-82<span class="green">%</span>
+<div id="ringValue">76%</div>
 
 </div>
 
-<p class="green">
+</div>
 
-▲ +5% respecto a la semana pasada
+</section>
+
+<section class="card coach">
+
+<h2>Tu Coach</h2>
+
+<h3 id="focusTitle">
+
+Pulsa para generar tu día
+
+</h3>
+
+<p id="coachMessage">
+
+Cronopio analizará tus objetivos y preparará tus misiones.
 
 </p>
-    <h3 style="margin-top:20px;">Progreso de hoy</h3>
+
+<button onclick="generateDay()">
+
+Generar mi día
+
+</button>
+
+</section>
+
+<section class="card">
+
+<div class="progress-header">
+
+<h2>Progreso de hoy</h2>
+
+<span id="progressLabel">
+
+0%
+
+</span>
+
+</div>
 
 <div class="progress">
-    <div id="progressFill" class="progress-fill"></div>
-</div>
 
-<p id="progressLabel" class="score">
-0% completado
-</p>
-
-</div>
-
-<div class="card">
-<div class="card" id="coachCard">
-
-    <h2>🧠 Coach</h2>
-
-    <h3 id="focusTitle">Tu foco de hoy</h3>
-
-    <p id="coachMessage">
-        Pulsa el botón para que Cronopio genere tus misiones.
-    </p>
-
-    <button id="generateButton" onclick="generateDay()">
-        Generar mi día
-    </button>
-
-</div>
-    
-<h2>Misiones de hoy</h2>
-
-<div class="add-task">
-    <input id="newTask" placeholder="Añadir nueva misión...">
-    <button onclick="addTask()">+</button>
-</div>
-
-<div id="customTasks"></div>
-
-</div>
-
-<div class="card coach">
-
-<h2>Coach</h2>
-
-<p>
-
-Llevas varios días sin realizar ninguna actividad creativa.
-
-Mi recomendación para hoy es sencilla:
-
-<strong>haz un boceto durante 20 minutos.</strong>
-
-</p>
-
-</div>
-
-<div class="bottom">
-
-<div>
-
-🏠<br>
-
-Hoy
-
-</div>
-
-<div>
-
-📊<br>
-
-WGR
-
-</div>
-
-<div>
-
-🎯<br>
-
-Objetivos
-
-</div>
-
-<div>
-
-👤<br>
-
-Perfil
+<div
+id="progressFill"
+class="progress-fill">
 
 </div>
 
 </div>
 
-<script>
+</section>
 
-document.querySelectorAll("input").forEach(c=>{
+<section class="card">
 
-c.checked=localStorage.getItem(c.id)=="true";
+<div class="missionsHeader">
 
-c.addEventListener("change",()=>{
+<h2>Misiones</h2>
 
-localStorage.setItem(c.id,c.checked);
+<button
+class="plus"
+onclick="addTask()">
 
-});
+＋
 
-});
-const customTasks = JSON.parse(localStorage.getItem("customTasks") || "[]");
+</button>
 
-function renderTasks(){
+</div>
 
-    const container=document.getElementById("customTasks");
+<div id="customTasks">
 
-    container.innerHTML="";
+</div>
 
-    customTasks.forEach((task,index)=>{
+</section>
 
-        container.innerHTML+=`
-        <div class="task">
+<nav>
 
-            <input type="checkbox"
-            ${task.done?"checked":""}
-            onchange="toggleTask(${index})">
+<div>🏠</div>
 
-            <label>${task.text}</label>
+<div>📊</div>
 
-        </div>
-        `;
+<div>🎯</div>
 
-    });
+<div>👤</div>
 
-}
+</nav>
 
-function addTask(){
+</div>
 
-    const input=document.getElementById("newTask");
-
-    if(input.value.trim()=="") return;
-
-    customTasks.push({
-
-        text:input.value,
-
-        done:false
-
-    });
-
-    input.value="";
-
-    saveTasks();
-
-}
-
-function toggleTask(index){
-
-    customTasks[index].done=!customTasks[index].done;
-
-    saveTasks();
-
-}
-
-function saveTasks(){
-
-    localStorage.setItem("customTasks",JSON.stringify(customTasks));
-
-    renderTasks();
-
-}
-
-renderTasks();
-</script>
+<script src="app.js"></script>
 
 </body>
 </html>
