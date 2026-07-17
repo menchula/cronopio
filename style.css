@@ -1,0 +1,118 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",sans-serif;
+}
+
+body{
+    background:#F5F5F7;
+    color:#111;
+    padding:24px;
+    padding-bottom:100px;
+}
+
+h1{
+    font-size:36px;
+    font-weight:700;
+}
+
+.subtitle{
+    color:#666;
+    margin-top:6px;
+    font-size:17px;
+}
+
+.card{
+    background:#fff;
+    border-radius:24px;
+    padding:22px;
+    margin-top:20px;
+    box-shadow:0 8px 25px rgba(0,0,0,.05);
+}
+
+.card h2{
+    margin-bottom:16px;
+}
+
+.progress{
+    width:100%;
+    height:14px;
+    background:#ECECEC;
+    border-radius:999px;
+    overflow:hidden;
+    margin:12px 0;
+}
+
+.progress-fill{
+    width:0%;
+    height:100%;
+    background:#111;
+    transition:.3s;
+}
+
+.score{
+    font-size:18px;
+    font-weight:600;
+}
+
+.task{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:14px 0;
+    border-bottom:1px solid #eee;
+}
+
+.task:last-child{
+    border-bottom:none;
+}
+
+input[type="checkbox"]{
+    width:22px;
+    height:22px;
+}
+
+.bottom{
+    position:fixed;
+    bottom:0;
+    left:0;
+    right:0;
+    background:white;
+    display:flex;
+    justify-content:space-around;
+    padding:16px;
+    box-shadow:0 -8px 20px rgba(0,0,0,.08);
+}
+
+.bottom div{
+    text-align:center;
+    font-size:13px;
+}
+
+.coach{
+    background:#111;
+    color:white;
+}
+
+.add-task{
+    display:flex;
+    gap:10px;
+    margin-bottom:15px;
+}
+
+.add-task input{
+    flex:1;
+    padding:12px;
+    border-radius:12px;
+    border:1px solid #DDD;
+}
+
+.add-task button{
+    border:none;
+    background:#111;
+    color:white;
+    border-radius:12px;
+    width:48px;
+    font-size:22px;
+}
