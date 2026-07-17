@@ -1,166 +1,348 @@
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",sans-serif;
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",sans-serif;
 }
 
 body{
-    background:#F5F5F7;
-    color:#111;
-    padding:24px;
-    padding-bottom:100px;
+
+background:linear-gradient(180deg,#F9F2FF,#FFF7FC);
+
+color:#222;
+
+min-height:100vh;
+
+}
+
+.container{
+
+max-width:430px;
+
+margin:auto;
+
+padding:22px 18px 110px;
+
 }
 
 h1{
-    font-size:36px;
-    font-weight:700;
+
+font-size:38px;
+
+font-weight:700;
+
+letter-spacing:-1px;
+
 }
 
 .subtitle{
-    color:#666;
-    margin-top:6px;
-    font-size:17px;
+
+margin-top:6px;
+
+color:#8A7C98;
+
+font-size:17px;
+
 }
 
 .card{
-    background:#fff;
-    border-radius:24px;
-    padding:22px;
-    margin-top:20px;
-    box-shadow:0 8px 25px rgba(0,0,0,.05);
+
+margin-top:18px;
+
+padding:22px;
+
+border-radius:28px;
+
+background:rgba(255,255,255,.72);
+
+backdrop-filter:blur(20px);
+
+-webkit-backdrop-filter:blur(20px);
+
+box-shadow:
+0 10px 40px rgba(190,160,255,.18);
+
 }
 
-.card h2{
-    margin-bottom:16px;
+.hero{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
 }
 
-.progress{
-    width:100%;
-    height:14px;
-    background:#ECECEC;
-    border-radius:999px;
-    overflow:hidden;
-    margin:12px 0;
+.small{
+
+font-size:14px;
+
+color:#998AA9;
+
+margin-bottom:8px;
+
 }
 
-.progress-fill{
-    width:0%;
-    height:100%;
-    background:#111;
-    transition:.3s;
+.hero h2{
+
+font-size:54px;
+
+font-weight:700;
+
 }
 
-.score{
-    font-size:18px;
-    font-weight:600;
+.wow{
+
+margin-top:8px;
+
+color:#8B5CF6;
+
+font-weight:600;
+
 }
 
-.task{
-    display:flex;
-    align-items:center;
-    gap:14px;
-    padding:14px 0;
-    border-bottom:1px solid #eee;
+.ring{
+
+width:96px;
+
+height:96px;
+
+border-radius:50%;
+
+background:
+conic-gradient(#9D6CFF 76%,#ECE8F7 0);
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
 }
 
-.task:last-child{
-    border-bottom:none;
-}
+.ring div{
 
-input[type="checkbox"]{
-    width:22px;
-    height:22px;
-}
+width:72px;
 
-.bottom{
-    position:fixed;
-    bottom:0;
-    left:0;
-    right:0;
-    background:white;
-    display:flex;
-    justify-content:space-around;
-    padding:16px;
-    box-shadow:0 -8px 20px rgba(0,0,0,.08);
-}
+height:72px;
 
-.bottom div{
-    text-align:center;
-    font-size:13px;
+border-radius:50%;
+
+background:white;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+font-weight:700;
+
 }
 
 .coach{
-    background:#111;
-    color:white;
-}
 
-.add-task{
-    display:flex;
-    gap:10px;
-    margin-bottom:15px;
-}
+background:linear-gradient(135deg,#B57BFF,#F38BCB);
 
-.add-task input{
-    flex:1;
-    padding:12px;
-    border-radius:12px;
-    border:1px solid #DDD;
-}
-
-.add-task button{
-    border:none;
-    background:#111;
-    color:white;
-    border-radius:12px;
-    width:48px;
-    font-size:22px;
-}
-#coachCard{
-
-    background:linear-gradient(135deg,#A855F7,#EC4899);
-    color:white;
+color:white;
 
 }
 
-#coachCard h2{
+.coach h2{
 
-    margin-bottom:10px;
-
-}
-
-#coachCard h3{
-
-    margin-bottom:10px;
+margin-bottom:10px;
 
 }
 
-#coachCard p{
+.coach h3{
 
-    line-height:1.5;
+margin-bottom:12px;
 
-    opacity:.95;
+font-size:23px;
 
 }
 
-#generateButton{
+.coach p{
 
-    margin-top:20px;
+line-height:1.6;
 
-    border:none;
+opacity:.95;
 
-    background:white;
+}
 
-    color:#7C3AED;
+.coach button{
 
-    font-weight:bold;
+margin-top:18px;
 
-    padding:14px 18px;
+width:100%;
 
-    border-radius:14px;
+padding:15px;
 
-    width:100%;
+border:none;
 
-    font-size:17px;
+border-radius:16px;
+
+background:white;
+
+color:#8B5CF6;
+
+font-size:17px;
+
+font-weight:700;
+
+}
+
+.progress-header{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+margin-bottom:15px;
+
+}
+
+.progress{
+
+height:14px;
+
+background:#ECE8F7;
+
+border-radius:999px;
+
+overflow:hidden;
+
+}
+
+.progress-fill{
+
+height:100%;
+
+width:0%;
+
+background:linear-gradient(90deg,#A855F7,#EC4899);
+
+transition:.35s;
+
+}
+
+#progressLabel{
+
+font-size:14px;
+
+font-weight:600;
+
+color:#8B5CF6;
+
+}
+
+.missionsHeader{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+margin-bottom:18px;
+
+}
+
+.plus{
+
+width:42px;
+
+height:42px;
+
+border:none;
+
+border-radius:14px;
+
+background:#A855F7;
+
+color:white;
+
+font-size:28px;
+
+}
+
+.task{
+
+display:flex;
+
+align-items:center;
+
+gap:14px;
+
+padding:16px 0;
+
+border-bottom:1px solid rgba(0,0,0,.06);
+
+}
+
+.task:last-child{
+
+border-bottom:none;
+
+}
+
+.task input{
+
+width:22px;
+
+height:22px;
+
+accent-color:#A855F7;
+
+}
+
+.task label{
+
+flex:1;
+
+font-size:16px;
+
+}
+
+.task button{
+
+border:none;
+
+background:none;
+
+font-size:18px;
+
+}
+
+nav{
+
+position:fixed;
+
+left:50%;
+
+transform:translateX(-50%);
+
+bottom:18px;
+
+width:min(390px,92%);
+
+background:rgba(255,255,255,.8);
+
+backdrop-filter:blur(20px);
+
+display:flex;
+
+justify-content:space-around;
+
+padding:16px;
+
+border-radius:24px;
+
+box-shadow:0 8px 30px rgba(0,0,0,.08);
+
+font-size:22px;
 
 }
